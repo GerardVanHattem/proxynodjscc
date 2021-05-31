@@ -186,7 +186,7 @@ app.get('/hello',(req,res)=>{
 //https://github.com/FusionAuth/fusionauth-issues/issues/158
 
 app.get('/login', (req,res)=>{
-	 
+	
 	var reqData = "grant_type=password&client_id=2&client_secret=2TR5CiK5rBDtntYFsEn0TPzpBCoShoncRL5EkKDo&username=gerard@cms4biz.nl&password=zondag12";
 	axios.request({
     method: 'post',
@@ -197,13 +197,18 @@ app.get('/login', (req,res)=>{
     }
 	}).then((response) =>{
 		//res.send(response); 
-		req.session.token = response.data; 
-		res.send(req.session.token.access_token); 
+		
+		req.session.token = response.data
+		res.json({ access_token: req.session.token.access_token })
+		//res.send(req.session.token.access_token); 
 		//res.send(response.data); 
         //res.send(response); 
     }).catch((error) =>{
+		//console.log(error); 
+		res.write('<p>not working</p>')
+		res.end()
            // res.send(error.response.status);
-            res.send(error.response.headers);
+            //res.send(error.response.headers);
             //res.send(error.response.status);
            // res.send(error.response.data); 
     })
