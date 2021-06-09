@@ -37,7 +37,7 @@ const app = express()
 
 
 let cors = require('cors')
-var whitelist = ['http://localhost:3001']
+var whitelist = ['http://localhost:3001','http://njproxy.mijnsiteontwerpen.nl/']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
