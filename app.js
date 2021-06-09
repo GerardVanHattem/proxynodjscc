@@ -2,6 +2,50 @@
 //https://www.twilio.com/blog/node-js-proxy-server
 //security
 //https://expressjs.com/en/advanced/best-practice-security.html
+//https://expressjs.com/en/advanced/best-practice-security.html
+
+
+//CFSR
+//https://medium.com/@dbillinghamuk/csrf-setup-for-expressjs-and-ssr-react-redux-app-348e65261009
+//CSRF token hash it with something like SHA-256
+
+//https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+
+// respond cookies
+// use express to serve static form the build folder
+//https://blog.logrocket.com/how-to-secure-react-app-login-authentication/#serverside
+
+//example cookies wihth cors
+//https://itsgosho2.medium.com/how-to-transfer-http-only-cookies-with-express-back-end-and-the-fetch-api-2035f0ac48d9
+
+//https://flaviocopes.com/express-cookies/
+
+//example
+//https://cheatcode.co/tutorials/how-to-implement-secure-httponly-cookies-in-node-js-with-express
+
+//lamba functions
+//https://bitbucket.org/blog/deploy-an-express-js-app-to-aws-lambda-using-the-serverless-framework
+
+
+//csrf implementation
+//https://stackoverflow.com/questions/59547873/how-to-secure-my-react-app-api-with-csurf
+
+// react serverless
+//https://egghead.io/lessons/react-native-create-interact-with-a-serverless-rest-api-with-aws-lambda-from-react
+
+//lambda authorizor
+//https://www.youtube.com/watch?v=al5I9v5Y-kA
+
+//example
+//https://medium.com/@sumindaniro/secure-aws-api-gateway-using-a-lambda-authorizer-40a1da825b16
+
+//exaple
+//https://medium.com/chegg/creating-an-api-gateway-lambda-authorizer-985b4f011770
+
+//
+//https://stackoverflow.com/questions/61778700/how-to-create-a-access-token-in-the-client-request-and-how-to-validate-it-in-the
+
+//https://authguidance.com/2018/12/16/serverless-api-deployment/
 
 const express = require('express'); 
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -36,15 +80,22 @@ const middlewareProxy = createProxyMiddleware('/api',options);
 const app = express()
 
 app.use(session({
-    cookie: {   maxAge: 86400000 },
+    cookie: {   
+		maxAge: 86400000,
+		//httpOnly: true, only production
+		//secure:true, only production
+		},
     store: new MemoryStore({
       checkPeriod: 86400000 // prune expired entries every 24h
     }),
     resave: false,
     secret: 'sgdf',
-	 logLevel: 'debug',
+	name: 'sessionId', 
+	logLevel: 'debug',
+	
 }))
 app.disable('x-powered-by'); 
+
 function vallidateToken(session){
 	 
 	if(session.token === undefined){
@@ -57,6 +108,9 @@ function vallidateToken(session){
 }
 //every response strip sentitive header info
 function onProxyRes(proxyRes, req, res) {
+	
+  
+	
   proxyRes.headers['x-added'] = 'foobar'; // add new header to response
   req.session.token = 'token' // remove header from response 
   delete proxyRes.headers['token']; // remove header from response
@@ -139,6 +193,15 @@ app.use(middlewareProxy);
 const port = process.env.port || 3000;
 //https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
 
+//https://medium.com/@mmajdanski/express-body-parser-and-why-may-not-need-it-335803cd048c
+//app.use(express.urlencoded());
+
+//https://stackoverflow.com/questions/11625519/how-to-access-the-request-body-when-posting-using-node-js-and-express
+//app.use(express.json())
+
+//https://stackoverflow.com/questions/11625519/how-to-access-the-request-body-when-posting-using-node-js-and-express
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 
 
@@ -185,9 +248,38 @@ app.get('/hello',(req,res)=>{
 //https://stackoverflow.com/questions/29360349/getting-error-unsupported-grant-type-when-trying-to-get-a-jwt-by-calling-an
 //https://github.com/FusionAuth/fusionauth-issues/issues/158
 
+app.post('/login2', (req,res)=>{
+	
+	referer = req.header('Referer');
+	
+	email = req.body.email;
+	pass = req.body.password;
+	res.json({requestBody: email,
+		referer : referer
+	}) 
+	
+	
+})
+
+
 app.get('/login', (req,res)=>{
 	
-	var reqData = "grant_type=password&client_id=2&client_secret=2TR5CiK5rBDtntYFsEn0TPzpBCoShoncRL5EkKDo&username=gerard@cms4biz.nl&password=zondag12";
+	//var reqData = "grant_type=password&client_id=2&client_secret=2TR5CiK5rBDtntYFsEn0TPzpBCoShoncRL5EkKDo&username=gerard@cms4biz.nl&password=zondag12";
+	
+	 email  = req.query.email
+	 pass  = req.query.password
+	
+	//email = 'test'
+	//pass = req.body.password  
+	
+	 //res.json({requestBody: email}) 
+	//res.send(req.body) 
+	//res.end()
+	
+	
+	//var reqData = "grant_type=password&client_id=2&client_secret=2TR5CiK5rBDtntYFsEn0TPzpBCoShoncRL5EkKDo&username=gerard@cms4biz.nl&password=zondag1223";
+	var reqData = "grant_type=password&client_id=2&client_secret=2TR5CiK5rBDtntYFsEn0TPzpBCoShoncRL5EkKDo&username=" + email + "&password=" + pass;
+	
 	axios.request({
     method: 'post',
     url: 'http://gitloc.mijnsiteontwerpen.nl/oauth/token',
@@ -211,7 +303,7 @@ app.get('/login', (req,res)=>{
             //res.send(error.response.headers);
             //res.send(error.response.status);
            // res.send(error.response.data); 
-    })
+    }) 
 
 	
 }) 
