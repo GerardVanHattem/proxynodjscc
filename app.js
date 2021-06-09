@@ -287,7 +287,7 @@ app.post('/oauth/token2', (req,res) => {
 		username:username,
 		client_id: 1, 
 		client_secret:'o4MYNbBTe20p8GxUGMwV9xlp4BPDMOnc8tyIvTev',
-		grant_type:'password1', 
+		grant_type:'password', 
 	}).then(function(response) {
 				
 		var data = {
