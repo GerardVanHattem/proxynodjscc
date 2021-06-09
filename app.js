@@ -35,6 +35,22 @@ const middlewareProxy = createProxyMiddleware('/api',options);
 
 const app = express()
 
+
+let cors = require('cors')
+var whitelist = ['http://localhost:3001']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+
+app.use(cors(corsOptions))
+
 app.use(session({
     cookie: {   maxAge: 86400000 },
     store: new MemoryStore({
@@ -143,6 +159,7 @@ function onProxyReq(proxyReq, req, res) {
 
 app.use(helmet())
 app.use(middlewareProxy); 
+
 const port = process.env.port || 3000;
 //app.use('/api', createProxyMiddleware({ target: 'http://gitloc.mijnsiteontwerpen.nl', changeOrigin: true }));
 
