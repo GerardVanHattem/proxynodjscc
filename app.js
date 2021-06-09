@@ -247,7 +247,8 @@ axios.request({
 
 //werkt!! 
 app.get('/oauth/token', (req,res) => {
-	
+	 
+	 
    /*const res6 = await axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token/')
     .then(function(response) {
        res.send(response)
@@ -256,7 +257,7 @@ app.get('/oauth/token', (req,res) => {
        res.send(error.response.data)   
     })*/ 
 	
-	res.send(req.body.email); 
+	//res.send(req.body.email); 
 	
 	
 	axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token', {
@@ -281,36 +282,14 @@ app.post('/oauth/token2', (req,res) => {
 	var username = req.body.username;
 	var password = req.body.password; 
 	
-	//var username = 'g.vanhattem@cms4biz.nl';
-	//var password = 'Zondag12'; 
-	
-	//res.json(req.body.username);
-	
-	//res.json({requestBody: req.body.email})
-	
-	
-   /*const res6 = await axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token/')
-    .then(function(response) {
-       res.send(response)
-    })
-    .catch(error => {
-       res.send(error.response.data)   
-    })*/ 
-	
-	//res.send(req.body.email); 
-	
-	
-	
-	
-	
 	axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token', {
 		password:password,
 		username:username,
 		client_id: 1, 
 		client_secret:'o4MYNbBTe20p8GxUGMwV9xlp4BPDMOnc8tyIvTev',
-		grant_type:'password', 
+		grant_type:'password1', 
 	}).then(function(response) {
-		
+				
 		var data = {
 		'id':1,
 		 username: "g.vanhattem@cms4biz.nl",
@@ -332,9 +311,11 @@ app.post('/oauth/token2', (req,res) => {
 		res.json(data); 
 		
 		
-       res.send(response.data)
+       //res.send(response.data)
     })
     .catch(error => {
+		
+	   res.status(error.response.status)
        res.send(error.response.data)   
     })
 
