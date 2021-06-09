@@ -313,6 +313,9 @@ app.post('/oauth/token2', (req,res) => {
 		
 		var data = {
 		'id':1,
+		 username: "g.vanhattem@cms4biz.nl",
+		 password: "Zondag12",
+		 email: "g.vanhattem@cmsbiz.nl",
         'fullname':'Dennis',
         'firstname':'Dennis',
         'lastname':'Boelen',
