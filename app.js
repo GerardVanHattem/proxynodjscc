@@ -279,7 +279,7 @@ app.get('/oauth/token', (req,res) => {
 //werkt!! 
 app.post('/oauth/token2', (req,res) => {
 	
-	var username = req.body.username;
+	var username = req.body.email;
 	var password = req.body.password; 
 	
 	axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token', {
