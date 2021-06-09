@@ -320,8 +320,8 @@ app.post('/oauth/token2', (req,res) => {
         'companyName':'Keenthemes',
         'phone':'456669067890',
         'language':'nl',
-		'access_token':response.data.access_token,
-		'refresh_token': response.data.refresh_token
+		'accessToken':response.data.access_token,
+		'refreshToken': response.data.refresh_token
 		}
 		
 		res.header("Access-Control-Allow-Origin","*");
