@@ -150,9 +150,11 @@ const port = process.env.port || 3000;
 //https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Access-Control-Allow-Headers, Content-Type, Authorization, Origin, Accept");
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    next();
 });
 
 
