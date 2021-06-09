@@ -44,8 +44,6 @@ app.use(session({
     secret: 'sgdf',
 	 logLevel: 'debug',
 }))
-app.use(express.json())
-
 app.disable('x-powered-by'); 
 function vallidateToken(session){
 	 
@@ -143,9 +141,9 @@ function onProxyReq(proxyReq, req, res) {
 
 app.use(helmet())
 app.use(middlewareProxy); 
+
 const port = process.env.port || 3000;
 //app.use('/api', createProxyMiddleware({ target: 'http://gitloc.mijnsiteontwerpen.nl', changeOrigin: true }));
-
 
 //https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
 
@@ -233,9 +231,6 @@ app.get('/oauth/token', (req,res) => {
        res.send(error.response.data)   
     })*/ 
 	
-	res.send(req.body.email); 
-	
-	
 	axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token', {
 		password:'Zondag12',
 		username:'g.vanhattem@cms4biz.nl', 
@@ -243,68 +238,6 @@ app.get('/oauth/token', (req,res) => {
 		client_secret:'o4MYNbBTe20p8GxUGMwV9xlp4BPDMOnc8tyIvTev',
 		grant_type:'password', 
 	}).then(function(response) {
-       res.send(response.data)
-    })
-    .catch(error => {
-       res.send(error.response.data)   
-    })
-
-})
-
-
-//werkt!! 
-app.post('/oauth/token2', (req,res) => {
-	
-	//var username = req.body.username;
-	//var password = req.body.password; 
-	
-	var username = 'g.vanhattem@cms4biz.nl';
-	var password = 'Zondag12'; 
-	
-	//res.json(req.body.username);
-	
-	//res.json({requestBody: req.body.email})
-	
-	
-   /*const res6 = await axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token/')
-    .then(function(response) {
-       res.send(response)
-    })
-    .catch(error => {
-       res.send(error.response.data)   
-    })*/ 
-	
-	//res.send(req.body.email); 
-	
-	
-	
-	
-	
-	axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token', {
-		password:password,
-		username:username,
-		client_id: 1, 
-		client_secret:'o4MYNbBTe20p8GxUGMwV9xlp4BPDMOnc8tyIvTev',
-		grant_type:'password', 
-	}).then(function(response) {
-		
-		var data = {
-		'id':1,
-        'fullname':'Dennis',
-        'firstname':'Dennis',
-        'lastname':'Boelen',
-        'occupation':'CEO',
-        'companyName':'Keenthemes',
-        'phone':'456669067890',
-        'language':'nl',
-		'access_token':response.data.access_token,
-		'refresh_token': response.data.refresh_token
-		}
-		
-		
-		res.json(data); 
-		
-		
        res.send(response.data)
     })
     .catch(error => {
@@ -350,9 +283,6 @@ app.get('/login', (req,res)=>{
 
 	
 }) 
-
-
-
 
 app.get('/auth/login', (req,res)=>{ 
 	 
