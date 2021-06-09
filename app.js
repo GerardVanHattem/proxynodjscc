@@ -307,6 +307,7 @@ app.post('/oauth/token2', (req,res) => {
 		'refresh_token': response.data.refresh_token
 		}
 		
+		res.header("Access-Control-Allow-Origin","*");
 		
 		res.json(data); 
 		
