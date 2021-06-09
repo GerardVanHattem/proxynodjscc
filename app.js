@@ -141,9 +141,10 @@ function onProxyReq(proxyReq, req, res) {
 
 app.use(helmet())
 app.use(middlewareProxy); 
+
+const port = process.env.port || 3000;
 //app.use('/api', createProxyMiddleware({ target: 'http://gitloc.mijnsiteontwerpen.nl', changeOrigin: true }));
 
-const port = 3000
 //https://auth0.com/blog/create-a-simple-and-stylish-node-express-app/
 
 
