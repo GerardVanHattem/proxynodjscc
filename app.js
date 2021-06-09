@@ -278,11 +278,11 @@ app.get('/oauth/token', (req,res) => {
 //werkt!! 
 app.post('/oauth/token2', (req,res) => {
 	
-	//var username = req.body.username;
-	//var password = req.body.password; 
+	var username = req.body.username;
+	var password = req.body.password; 
 	
-	var username = 'g.vanhattem@cms4biz.nl';
-	var password = 'Zondag12'; 
+	//var username = 'g.vanhattem@cms4biz.nl';
+	//var password = 'Zondag12'; 
 	
 	//res.json(req.body.username);
 	
