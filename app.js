@@ -10,7 +10,14 @@ const MemoryStore = require('memorystore')(session);
 const axios = require('axios');
 const helmet = require('helmet');
 const client_id = 'client_id'; 
-const client_secret = 'client_secret'; 
+const client_secret = 'client_secret';
+
+
+//accept
+const baseUrl = 'http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19' 
+//local
+//const baseUrl = 'http://demoincasso.casecontrol.test/api/v1/administrations/19'
+
 
 //middelware options
 const options = {
@@ -233,7 +240,7 @@ axios.request({
   url:'http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/cases',
   method:'GET',
   headers:{
-	  Authorization:'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjIwYTI4YmY4MDlkNmVmYmRjMDRlOTc4NjlmMzk0Y2ZiMjM1ZGM4YjEzMzA1MTA4NWM3NTdiMWIyYzBmYjEwNTI5YmRlMDBmOTA4MzAwZmQiLCJpYXQiOjE2MjMyNDYzNTIuOTMyOTEsIm5iZiI6MTYyMzI0NjM1Mi45MzI5MTcsImV4cCI6MTY1NDc4MjM1Mi45MTc5OTgsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.LVSeI3ab2Sgv3h25tuee6c9E1iEk5OnI9vuiugFcW1T1rXmLmbRQHB3H02Ntuow-1cM6QvLMFG6_PXozuzj8fxGMgkD_ODNpDrqtTHIlJ18jCwNF8oi0xIVbt6Z-onO_Fr83Qm0SHmG_wiM024AhR4w0U9joRerAPx5S9SG7HOdrOP3afZUlp8HjcKWOnZWivu50AnG2EqGCulBlnk0-MR1J5PJurbcLWG0t0NLBTShECnvERPE2zZZ0pQCFrviholWCKp_i2GEXbdBuRsE2ikcGZW3rSLmDv5eB96Jupk5wXGw-AMJrTz8V-A-fvrKfoVB9nlXjtbQvPQXdCAJADqUSIZtq8Rp9qufcqvCsE3Pn_1cTXkfn0g8LsXPlgx9ln3Tuqx5YGCPlN4Uw84cqouPBkFFu2asIIQYm8qXgcfpUGYdBj1jgtmLqA2XZJI05o-lPKClLjgoQ6mlrsg4Jcd_NBEH-7AeqoKC7OLjZUxDUjmpl-ZuT06rToeQ-Gly33Y9huwWlFB49uRj1NEFaQkp3XA_mQyVI_GSQTlEB78ZRxHj1LdU3ndQLOoeh5WjcMMjTGZciMI20PV_R_Llup5kNYuiK3ZW5KvN_tdKjUUHhnDbHTjXGjKexdaui5ZXKlpdO8Mu5kMFx2cf_dDxadtvBneJ8941stJycROeiilo'
+	  Authorization:'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjk1YTc1MThmYWM3NTliM2M5NDE5MTRkZTg2NDcwN2Y4MzQ5ZTdmYTBjMGQzNmMwMWU4ZTBiMDM0NWE3NzUwOWFjMjY0YjcwY2VkZjgyZWQiLCJpYXQiOjE2MjMzMDA3MzcuNzUzNTAzLCJuYmYiOjE2MjMzMDA3MzcuNzUzNTA3LCJleHAiOjE2NTQ4MzY3MzcuNjg2MTQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.GZ4B0k4vcupuikVNXWXr9AMpOroS9NMl-pah9RR3CTp1_-OvjLocOwKaobIk1qOksMAU39S-NTcKLsUPtYB_Hjp-NMyZcox4BY33MTc-HJ5qwPC62_2S9iGq4NMDV63VLez95Rm5HVruudErMw8TYJS5v8dHVfJf7TL1w3UZJ0Eded46gAAh4nwEkbEypYVAFQi-2ra0UjEL3jUD6XNLkyOwoOHNsQ4_Ur6NDdc6kE4vMM5SF9j8oWq7t6kDrXq0JTWk3U4W6gtUXuLFhOLl7YW4ABDRBC8I4s9Afd6OZ8LL8d0vTEjnJKHoJOx8GD5gFk04LO2ePF-uc5VsbocJU4HrbpTHVnkW7RABucPuidMkxnocLbslMaK4OzQNcboNRQs-c17IOOIpwwko9VjSm529J888H7Xg_Hn75TpzFgGS4uPjtuZK6QSQswfiwlStKx66cK8HaH7f3ueCCj8lVZ6t7c8w77Yk_3b70rzo-JQll3_ylI47aDedbv_5ZJv9MJOwUIdFd6rnX0wc_-pSVgFcnIYcin23S5zIOSeIcgQPscwbq3D6Z_JGPTz3TpYonOqlfsAX-zvlFtC3OWZJVRogys2PF_wrsiGRymM1Z9BSc24ymXAEnfZfWij6cOmQ3UTJkNJTyKjGXv_KD4DR9vDC33rW8ZqH2zHxDWNf24c'
   }
 }).then(function (response) {
     res.send(response)
@@ -246,7 +253,7 @@ axios.request({
 
 
 //werkt!! 
-app.get('/oauth/token', (req,res) => {
+app.get('/oauth/token/old', (req,res) => {
 	 
 	 
    /*const res6 = await axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token/')
@@ -275,14 +282,92 @@ app.get('/oauth/token', (req,res) => {
 
 })
 
+app.get('/me2', (req,res) => {
+
+	//check bearer token
+	
+	var token = req.headers.authorization; 
+	
+	if(!token){
+		res.status(401)
+		res.json({'error':'No token'})
+	}
+	
+	//res.json({token:token}); 
+		
+	axios.request({
+	url:'http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/me', 
+	headers:{'Authorization':token,'Content-Type':'application/json','Accept':'application/json'},
+	method:'GET'
+	}).then(function(response) {
+				
+		
+		res.json(response); 
+		
+		
+       //res.send(response.data)
+    })
+    .catch(error => {
+		
+		res.status(error.response.status)
+		res.json(error.response.data)
+		
+    })
+	
+
+})
+
+
+app.get('/me', (req,res) => {
+	
+	var token = req.headers.authorization; 	
+	var isBearer = token.startsWith("Bearer");
+	
+	if(!token && isBearer){
+		res.status(401)
+		res.json({'error':'No valid token'}) 
+	}
+
+
+axios.request({ 
+  url:baseUrl + '/me',
+  method:'GET',
+  headers:{
+	  'Authorization':token,
+	  'Content-Type':'application/json',
+	  'Accept':'application/json'  
+  }
+}).then(function (response) {
+    res.status(200); 
+	res.json(response.data);
+})
+.catch(function (error) {
+	
+	res.status(error.response.status)
+    res.send(error.response.data)   
+	
+})
+
+})
+
+
+
 
 //werkt!! 
-app.post('/oauth/token2', (req,res) => {
+app.post('/oauth/token', (req,res) => {
 	
-	var username = req.body.email;
-	var password = req.body.password; 
+	var username = req.body.email
+	var password = req.body.password;
 	
-	axios.post('http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/oauth/token', {
+	
+	//var username = 'g.vanhattem@cms4biz.nl'
+	//var password = 'Zondag12';
+	
+	//res.send(username); 
+	
+	
+	
+	axios.post(baseUrl+'/oauth/token', {
 		password:password,
 		username:username,
 		client_id: 1, 
@@ -292,9 +377,9 @@ app.post('/oauth/token2', (req,res) => {
 				
 		var data = {
 		'id':1,
-		 username: "g.vanhattem@cms4biz.nl",
-		 password: "Zondag12",
-		 email: "g.vanhattem@cmsbiz.nl",
+		 username: username,
+		 password: password,
+		 email: username,
         'fullname':'Dennis',
         'firstname':'Dennis',
         'lastname':'Boelen',
@@ -316,15 +401,12 @@ app.post('/oauth/token2', (req,res) => {
     .catch(error => {
 		
 	   res.status(error.response.status)
-       res.send(error.response.data)   
+	   
+	   //send already a json
+       res.send(error.response.data)  
     })
 
 })
-
-
-
-
- 	
 
 
 app.get('/login', (req,res)=>{
@@ -359,35 +441,6 @@ app.get('/login', (req,res)=>{
 	
 }) 
 
-
-
-
-app.get('/auth/login', (req,res)=>{ 
-	 
-	var reqData = "";
-	axios.request({
-    method: 'post',
-    url: 'http://git.mijnsiteontwerpen.nl/api/proxy/token',
-    data: (reqData),   
-    headers: { 
-      "Content-Type": "application/x-www-form-urlencoded",
-    }
-	}).then((response) =>{
-		//res.send(response); 
-		req.session.token = response.data; 
-		res.send(req.session.token); 
-		res.send(req.session.token.access_token); 
-		//res.send(response.data); 
-        //res.send(response); 
-    }).catch((error) =>{
-           // res.send(error.response.status);
-            res.send(error.response.headers);
-            //res.send(error.response.status);
-           // res.send(error.response.data);
-    })
-
-	
-}) 
 
 app.get('/logout',(req,res)=>{
 	
