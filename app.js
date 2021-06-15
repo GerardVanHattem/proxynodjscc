@@ -9,6 +9,8 @@ const session = require('express-session');
 const MemoryStore = require('memorystore')(session); 
 const axios = require('axios');
 const helmet = require('helmet');
+const querystring = require('querystring');
+
 const client_id = 'client_id'; 
 const client_secret = 'client_secret';
 
@@ -58,13 +60,15 @@ var corsOptions = {
 
 app.use(cors('*'))
 
-app.use(function(req, res, next) {
+
+//*redirect to https
+/*app.use(function(req, res, next) {
     if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
         res.redirect('https://' + req.get('Host') + req.url);
     }
     else
         next();
-});
+});*/ 
 
 app.use(session({
     cookie: {   maxAge: 86400000 },
@@ -235,26 +239,96 @@ app.get('/hello',(req,res)=>{
 
 
 
+app.get('/cases/:id', (req,res) =>{
+	
+	const id = req.params.id; 
+	
+	
+	
+	//res.json({'asd':queryString})
+	
+	
+	var token = req.headers.authorization; 	
+	var isBearer = token.startsWith("Bearer");
+
+	if(!token && isBearer){         
+		res.status(401)
+		res.json({'error':'No valid token'}) 
+	}
+	  
+	axios.request({ 
+	  url:baseUrl + '/cases/' + id,
+	  method:'GET',
+	  headers:{
+		  Authorization:token
+	  }
+	}).then(function (response) {
+		
+		res.send(response.data)
+		
+	})
+	.catch(function (error) {
+		
+		res.status(error.response.status)
+		res.send(error.response.data)                       
+		
+	})
+	
+	
+	
+}) 
 
 
 
 
 
+app.get('/cases/', (req,res) =>{
+	
+ 
+var token = req.headers.authorization; 	
+var isBearer = token.startsWith("Bearer");
 
-app.get('/cases2', (req,res) => {
+if(!token && isBearer){
+	res.status(401)
+	res.json({'error':'No valid token'}) 
+}
 
+var queryString = querystring.stringify(req.query);
+	
+	
+if(queryString){
+	var queryString = '?' + queryString;  
+}
 
+/*
+var queryParams = {filter: {status: "", creditor: ""},
+pageNumber: 1,
+pageSize: 10,
+sortField: "id",
+sortOrder: "asc"}
+
+axios.get(baseUrl + '/cases',queryParams).then(function(response){
+	res.send(response.data)
+}).catch(function(error){
+	res.send(error)
+});
+*/ 
 axios.request({ 
-  url:'http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/cases',
+  url:baseUrl + '/cases/' + queryString, 
   method:'GET',
   headers:{
-	  Authorization:'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjk1YTc1MThmYWM3NTliM2M5NDE5MTRkZTg2NDcwN2Y4MzQ5ZTdmYTBjMGQzNmMwMWU4ZTBiMDM0NWE3NzUwOWFjMjY0YjcwY2VkZjgyZWQiLCJpYXQiOjE2MjMzMDA3MzcuNzUzNTAzLCJuYmYiOjE2MjMzMDA3MzcuNzUzNTA3LCJleHAiOjE2NTQ4MzY3MzcuNjg2MTQ1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.GZ4B0k4vcupuikVNXWXr9AMpOroS9NMl-pah9RR3CTp1_-OvjLocOwKaobIk1qOksMAU39S-NTcKLsUPtYB_Hjp-NMyZcox4BY33MTc-HJ5qwPC62_2S9iGq4NMDV63VLez95Rm5HVruudErMw8TYJS5v8dHVfJf7TL1w3UZJ0Eded46gAAh4nwEkbEypYVAFQi-2ra0UjEL3jUD6XNLkyOwoOHNsQ4_Ur6NDdc6kE4vMM5SF9j8oWq7t6kDrXq0JTWk3U4W6gtUXuLFhOLl7YW4ABDRBC8I4s9Afd6OZ8LL8d0vTEjnJKHoJOx8GD5gFk04LO2ePF-uc5VsbocJU4HrbpTHVnkW7RABucPuidMkxnocLbslMaK4OzQNcboNRQs-c17IOOIpwwko9VjSm529J888H7Xg_Hn75TpzFgGS4uPjtuZK6QSQswfiwlStKx66cK8HaH7f3ueCCj8lVZ6t7c8w77Yk_3b70rzo-JQll3_ylI47aDedbv_5ZJv9MJOwUIdFd6rnX0wc_-pSVgFcnIYcin23S5zIOSeIcgQPscwbq3D6Z_JGPTz3TpYonOqlfsAX-zvlFtC3OWZJVRogys2PF_wrsiGRymM1Z9BSc24ymXAEnfZfWij6cOmQ3UTJkNJTyKjGXv_KD4DR9vDC33rW8ZqH2zHxDWNf24c'
+	  Authorization:token
   }
 }).then(function (response) {
-    res.send(response)
+	
+	res.send(response.data)
+	
 })
 .catch(function (error) {
+	
+	res.status(error.response.status)
 	res.send(error.response.data)                       
+	
 })
 
 })
@@ -371,7 +445,7 @@ app.post('/oauth/token', (req,res) => {
 	//var username = 'g.vanhattem@cms4biz.nl'
 	//var password = 'Zondag12';
 	
-	//res.send(username); 
+	
 	
 	
 	
