@@ -262,7 +262,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		response.pipe(fileStream);
 		
 		tempFileName2 = 'check.pdf'; 
-		tempFileName2 = tempFileName; 
+		//tempFileName2 = tempFileName; 
 		
 		//get extra headers
 		var contentType = response.headers['content-type'];
