@@ -257,6 +257,8 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 	
 }); 
 
+const port = process.env.port || 3000;
 
-
-app.listen(3000);
+app.listen(port, () => { 
+    
+})
