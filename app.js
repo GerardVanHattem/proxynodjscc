@@ -71,7 +71,7 @@ const middlewareOptions = {
 
 
 let cors = require('cors')
-var whitelist = process.env.cors_whitelist
+var whitelist = ['http://localhost:3001','https://master.d23zxthy4ykh0n.amplifyapp.com']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
