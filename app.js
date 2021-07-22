@@ -69,11 +69,13 @@ const middlewareOptions = {
    }
 }
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+server.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
 
 /*let cors = require('cors')
 var whitelist = ['http://localhost:3001','https://master.d23zxthy4ykh0n.amplifyapp.com']
@@ -178,10 +180,6 @@ app.get('/me', (req,res) => {
 })
 
 app.get('/', (req,res) =>{
-	
-	console.log(config.api.ssl)
-	console.log(config.api.host)
-	console.log(config.api.base_path + '/')
 	
 	res.send('working..'); 
 	
