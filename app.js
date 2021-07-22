@@ -91,6 +91,12 @@ var corsOptions = {
 app.use(cors(corsOptions))
 app.use(cors('*'))*/ 
 
+const corsOptions = {
+  origin: '*'
+}
+
+app.use(cors(corsOptions))
+
 app.use('/api/v1', createProxyMiddleware(middlewareOptions));
 
 
