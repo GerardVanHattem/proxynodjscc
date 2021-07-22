@@ -239,6 +239,8 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		var filename = 'check.pdf'
 		
 		//get extension
+		
+		///os.tmpdir()
 		var path = require('path')
 		var extension = path.extname(filename); 
 		
@@ -251,6 +253,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		const fileStream = fs.createWriteStream(tempFileName);  
 		response.pipe(fileStream);
 		
+		tempFileName2 = 'check.pdf'; 
 		
 		//get extra headers
 		var contentType = response.headers['content-type'];
@@ -260,7 +263,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		fileStream.on("finish",function(){
 			fileStream.close();
 		
-			res.download(tempFileName, filename, function(err){
+			res.download(tempFileName2, filename, function(err){
 				
 				fs.unlink(tempFileName,resultHandler);
 				
