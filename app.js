@@ -96,14 +96,12 @@ app.post('/oauth/token', (req,res) => {
 	
 	const baseUrl = config.api.ssl + '://' + config.api.host + config.api.base_path; 
 	
-	console.log(config.api.client_id)
-	console.log(config.api.client_secret)
 		
 	axios.post(baseUrl+'/oauth/token', {
 		password:password,
 		username:username,
-		client_id: config.api.client_id, 
-		client_secret:config.api.client_secret, 
+		client_id: 1, 
+		client_secret:'o4MYNbBTe20p8GxUGMwV9xlp4BPDMOnc8tyIvTev', 
 		grant_type:'password', 
 	 }).then(function(response) {
 		
