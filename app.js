@@ -69,7 +69,11 @@ const middlewareOptions = {
    }
 }
 
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 /*let cors = require('cors')
 var whitelist = ['http://localhost:3001','https://master.d23zxthy4ykh0n.amplifyapp.com']
