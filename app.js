@@ -16,6 +16,7 @@ const client_id = 'client_id';
 const client_secret = 'client_secret';
 const config = require('./config');
 const encryption = require('./encryption'); 
+const os = require('os');
 app.use(express.json())
 
 
@@ -209,6 +210,8 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 	
 	//decrypt token		
 	const decryptedToken = encryption.decrypt(encryptedToken); 		
+	//const decryptedToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0MyIsImp0aSI6ImI0Zjg5MmZlZDUwMmQ1ZWM3NzhmNGE5NDE5YWU2OTI4NGIzNjNhNGE1OTVkNzc3YzY5MmIxN2YzN2Y5MjQwODViMjg3OTViOWNlZmJhNGQ1IiwiaWF0IjoxNjI2OTgyOTQ3LjkwMDcxNSwibmJmIjoxNjI2OTgyOTQ3LjkwMDcyNSwiZXhwIjoxNjU4NTE4OTQ3LjYxMjQ4Miwic3ViIjoiMSIsInNjb3BlcyI6W119.zVCLgGYRTizl8K5I5lQeJs2VpyKZpU4an7umwqut801DVClZdMTAll6CgDzZqAhaLKyKzNFhIsS3rAHtgCP-URa5X07Etfmxg9X1PuWqizMm6i5gY2DTERsXoX7YLDEwO3FhOmD5hirquqjEnCs6mr4kKlvDCdP5xH7kJEdVX03yKDJZ89fTfKtUAMUzCooxC1sXu18jOG8oiXgdmuDuDKFu4g6iEKEdVu53nkjTEezMT7kMVSaM9_NHuBH-CT3SpYZdyLs3zeHwzERkInGLnSSlsRarC3CoKTwrhQuJHqRoPkhWfWrexhIJM-TZ58zSKNN86bfjy9hX8-h4Uq-TP8lWqgKoRRJjH6A92Tgnu9_BynvwkVIS1fthBldayxaWTJl8d1PYk8CbZkt9Ib-cIUzTh90IG357XMO4Hch9jMSmQ5vX4MvGn4Ul0zqK0vOgYfyxuoeCzyN6MKF8fb_rmyid7MfxB3uhqSKHTcCMHeTMbgitpNX9bpWpmglD2jq-AwrUNlmUZozUTvqHxwqgxaqVBwWzVoyb6Z5eYaOxYY9k9k-sfqwXd3hQTBmVileDuvarhBtjBrJuO0tsjhNqz1diIwkW65yIWNeRLf9BPwf161X6RXhbjfdwJr0NEeSUz4Sg-us0HXe-GZwMSe3NT4ouLKd_tkNcoFpwFpK5By8'; 
+	
 	decryptedAuthorizationHeader = 'Bearer ' + decryptedToken;
 	
 	var http = require('http');
@@ -247,7 +250,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		//create temp filename
 		var crypto = require("crypto");
 		var id = crypto.randomBytes(20).toString('hex');		
-		var tempFileName = id+extension; 
+		var tempFileName = os.tmpdir() + '/' +id+extension; 
 		
 		//write received file on server
 		const fileStream = fs.createWriteStream(tempFileName);  
@@ -263,7 +266,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		fileStream.on("finish",function(){
 			fileStream.close();
 		
-			res.download(tempFileName2, filename, function(err){
+			res.download(tempFileName, filename, function(err){
 				
 				fs.unlink(tempFileName,resultHandler);
 				
