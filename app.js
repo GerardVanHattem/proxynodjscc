@@ -253,7 +253,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		//var tempFileName = os.tmpdir() + '/'  +id+extension; 
 		//var tempFileName = os.tmpdir() + '/'  +id+extension; 
 		
-		console.log(tempFileName);
+		//console.log(tempFileName);
 		
 		//write received file on server
 		const fileStream = fs.createWriteStream('check.pdf');  
