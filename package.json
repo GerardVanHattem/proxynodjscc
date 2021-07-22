@@ -23,8 +23,7 @@
     "randomstring": "^1.2.1",
     "rate-limiter-flexible": "^2.2.1",
     "request": "^2.81.0",
-	"http-proxy-middleware": "^1.2.0",
-	 "nodemon": "^2.0.7"
+	"http-proxy-middleware": "^1.2.0"
   },
   "devDependencies": {
     "http-proxy-middleware": "^1.2.0",
