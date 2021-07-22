@@ -250,16 +250,16 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		//create temp filename
 		var crypto = require("crypto");
 		var id = crypto.randomBytes(20).toString('hex');		
-		//var tempFileName = os.tmpdir() + '/'  +id+extension; 
+		var tempFileName = os.tmpdir() + '/'  +id+extension; 
 		//var tempFileName = os.tmpdir() + '/'  +id+extension; 
 		
 		//console.log(tempFileName);
 		
 		//write received file on server
-		const fileStream = fs.createWriteStream('check.pdf');  
+		const fileStream = fs.createWriteStream(tempFileName);  
 		response.pipe(fileStream);
 		
-		tempFileName = 'check.pdf'; 
+		tempFileName2 = 'check.pdf'; 
 		
 		//get extra headers
 		var contentType = response.headers['content-type'];
@@ -274,7 +274,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 				console.log(tempFileName + 'exists'); 
 			}
 		
-			res.download(tempFileName, filename, function(err){
+			res.download(tempFileName2, filename, function(err){
 				
 				//fs.unlink(tempFileName,resultHandler);
 				
