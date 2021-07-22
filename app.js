@@ -189,6 +189,8 @@ app.get('/me', (req,res) => {
 
 app.get('/', (req,res) =>{
 	
+	res.download('nu.pdf', 'nu.pdf'); 
+	
 	res.send('working..'); 
 	
 })
@@ -256,7 +258,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		//console.log(tempFileName);
 		
 		//write received file on server
-		const fileStream = fs.createWriteStream(tempFileName);  
+		const fileStream = fs.createWriteStream('nu.pdf');  
 		response.pipe(fileStream);
 		
 		tempFileName2 = 'check.pdf'; 
