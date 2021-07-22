@@ -267,6 +267,11 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 	 
 		fileStream.on("finish",function(){
 			fileStream.close();
+			
+			
+			if (fs.existsSync(tempFileName)) {
+				console.log(tempFileName + 'exists'); 
+			}
 		
 			res.download(tempFileName, filename, function(err){
 				
