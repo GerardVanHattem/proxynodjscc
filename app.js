@@ -278,7 +278,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 			}
 		
 			res.download(tempFileName2, filename, function(err){
-				
+				res.download('check.pdf');
 				//fs.unlink(tempFileName,resultHandler);
 				
 			}); 
