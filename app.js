@@ -1,7 +1,7 @@
 //load needed modules
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const encryption = require('./encryption'); 
+
 const randomstring = require("randomstring");
 const app = express();
 const axios = require('axios');
@@ -15,6 +15,7 @@ const crypto = require("crypto");
 const client_id = 'client_id'; 
 const client_secret = 'client_secret';
 const config = require('./config');
+const encryption = require('./encryption'); 
 app.use(express.json())
 
 
@@ -70,21 +71,33 @@ const middlewareOptions = {
 
 
 
-
+/*let cors = require('cors')
+var whitelist = ['http://localhost:3001','https://master.d23zxthy4ykh0n.amplifyapp.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+} 
+app.use(cors(corsOptions))
+app.use(cors('*'))*/ 
 
 app.use('/api/v1', createProxyMiddleware(middlewareOptions));
 
 
 app.post('/oauth/token', (req,res) => {
-	
-	
-	
+		
 	const username = req.body.email	
 	const password = req.body.password;
 
 	
 	const baseUrl = config.api.ssl + '://' + config.api.host + config.api.base_path; 
 	
+	console.log(config.api.client_id)
+	console.log(config.api.client_secret)
 		
 	axios.post(baseUrl+'/oauth/token', {
 		password:password,
@@ -112,11 +125,12 @@ app.post('/oauth/token', (req,res) => {
        //res.send(response.data)
     })
     .catch(error => {
-		
-	   res.status(error.response.status)
+		console.log(error); 
+		res.send(error); 
+	   //res.status(error.response.status)
 	   
 	   //send already a json
-       res.send(error.response.data)  
+       //res.send(error.response.data)  
     })
 
 })
@@ -162,6 +176,10 @@ app.get('/me', (req,res) => {
 })
 
 app.get('/', (req,res) =>{
+	
+	console.log(config.api.ssl)
+	console.log(config.api.host)
+	console.log(config.api.base_path + '/')
 	
 	res.send('working..'); 
 	
