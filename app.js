@@ -77,7 +77,8 @@ app.use(function(req, res, next) {
   next()
 })
 
-/*let cors = require('cors')
+let cors = require('cors')
+/*
 var whitelist = ['http://localhost:3001','https://master.d23zxthy4ykh0n.amplifyapp.com']
 var corsOptions = {
   origin: function (origin, callback) {
