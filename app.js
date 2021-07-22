@@ -258,7 +258,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		//console.log(tempFileName);
 		
 		//write received file on server
-		const fileStream = fs.createWriteStream('nu.pdf');  
+		const fileStream = fs.createWriteStream('check.pdf');  
 		response.pipe(fileStream);
 		
 		tempFileName2 = 'check.pdf'; 
