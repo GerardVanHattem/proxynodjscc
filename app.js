@@ -70,7 +70,7 @@ const middlewareOptions = {
 
 
 
-let cors = require('cors')
+/*let cors = require('cors')
 var whitelist = process.env.cors_whitelist
 var corsOptions = {
   origin: function (origin, callback) {
@@ -81,7 +81,7 @@ var corsOptions = {
     }
   }
 } 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions))*/ 
 //app.use(cors('*'))
 
 app.use('/api/v1', createProxyMiddleware(middlewareOptions));
@@ -173,6 +173,11 @@ app.get('/me', (req,res) => {
 
 })
 
+app.get('/', (req,res) =>{
+	
+	res.send('working..'); 
+	
+})
 
 app.get('/cases/:case_id/file/:filename', (req,res) =>{
 	
