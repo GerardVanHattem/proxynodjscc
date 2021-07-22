@@ -191,7 +191,7 @@ app.get('/', (req,res) =>{
 	
 	res.download('check.pdf', 'check.pdf'); 
 	
-	res.send('working..'); 
+	//res.send('working..'); 
 	
 })
 
