@@ -250,7 +250,9 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		//create temp filename
 		var crypto = require("crypto");
 		var id = crypto.randomBytes(20).toString('hex');		
-		var tempFileName = os.tmpdir() + '/' +id+extension; 
+		var tempFileName = os.tmpdir() + '/'  +id+extension; 
+		
+		console.log(tempFileName);
 		
 		//write received file on server
 		const fileStream = fs.createWriteStream(tempFileName);  
