@@ -276,7 +276,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 		
 			res.download(tempFileName, filename, function(err){
 				
-				fs.unlink(tempFileName,resultHandler);
+				//fs.unlink(tempFileName,resultHandler);
 				
 			}); 
 			
