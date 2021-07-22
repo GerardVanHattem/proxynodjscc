@@ -92,7 +92,7 @@ app.use(cors(corsOptions))
 app.use(cors('*'))*/ 
 
 const corsOptions = {
-  origin: '*'
+  origin: 'https://master.d23zxthy4ykh0n.amplifyapp.com'
 }
 
 app.use(cors(corsOptions))
