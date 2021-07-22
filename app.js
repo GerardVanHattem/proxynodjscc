@@ -189,7 +189,7 @@ app.get('/me', (req,res) => {
 
 app.get('/', (req,res) =>{
 	
-	res.download('nu.pdf', 'nu.pdf'); 
+	res.download('check.pdf', 'check.pdf'); 
 	
 	res.send('working..'); 
 	
