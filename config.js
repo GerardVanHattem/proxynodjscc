@@ -12,6 +12,7 @@ config.api = {
 	host : process.env.api_host || '', 
 	base_path : process.env.api_base_path || '', 
 	ssl : process.env.api_ssl || 'http',
+	cors_domain: process.env.cors_domain ||  'https://master.d23zxthy4ykh0n.amplifyapp.com'
 }; 
  
 config.encryption={

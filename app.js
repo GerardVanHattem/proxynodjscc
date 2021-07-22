@@ -93,7 +93,7 @@ app.use(cors(corsOptions))
 app.use(cors('*'))*/ 
 
 const corsOptions = {
-  origin: 'https://master.d23zxthy4ykh0n.amplifyapp.com'
+  origin: config.api.cors_domain
 }
 
 app.use(cors(corsOptions))
@@ -128,7 +128,7 @@ app.post('/oauth/token', (req,res) => {
 			'refreshToken': encryptedRefeshToken
 		}
 		
-		res.header("Access-Control-Allow-Origin","*");
+		//res.header("Access-Control-Allow-Origin","*");
 		
 		res.json(data); 
 		
