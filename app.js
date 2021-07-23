@@ -192,7 +192,7 @@ app.get('/me', (req,res) => {
 
 app.get('/', (req,res) =>{
 	
-	res.send(config.api.client_id + ' ' + config.api.client_secret); 
+	res.send('keys' + config.api.client_id + ' ' + config.api.client_secret); 
 	
 	res.download('check.pdf', 'check.pdf'); 
 	
