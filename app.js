@@ -330,10 +330,10 @@ const download = (res) => {
 	
 	const options = 
 	{
-		uri:'http://demoincasso.casecontrol.test/api/v1/administrations/19/cases/28/file/204_d90f6bb071c69375227df0d8404c9b864ba15b5d',
+		uri:'http://cc.mijnsiteontwerpen.nl/api/v1/administrations/19/cases/28/file/204_d90f6bb071c69375227df0d8404c9b864ba15b5d',
 		method: 'GET',
 		 headers: {
-			'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0MyIsImp0aSI6ImVmYzUzYzgzODc0ZGMwZDllYWVmYTM4ZDI5ZjFlZWMxZjc2NDY5NTY1OTE5ZjhmOWUyMDkxNTc5NTYxZDQyY2FkOTdkMWI2MzdkNmM3ZjhlIiwiaWF0IjoxNjI3MDI0NzE4LjgwNTc1OCwibmJmIjoxNjI3MDI0NzE4LjgwNTc2NiwiZXhwIjoxNjU4NTYwNzE4LjQ5NTgwOCwic3ViIjoiMSIsInNjb3BlcyI6W119.NT_J4_HYt0SGHkeSEd11Kpj0qITUYBWI9Z28PbOuDsc57pMUeb2PQEh1HfJK2RtFxxV_teGKXHlk-x3MtJxmppESo2VnlhUYkfO0fuPXGjHBie-dBKdypz6hWL0U3PC4bQ5Jdh58EeoLP5IioRCh4pqhX2pY0PqxgS57pHO2rUNfloaqrpBVRRwltdQKhcYPFnVEv18GJXpFd1xvsigqFbW-fOG3zNGxPdTDfGRyywePGWqd-FW5w-SBks9_xyYhUGP24unso9RWb6JRygqQr6Csc0eA8OBJAkqvJvre1oYHN5ci2OETQGVzrNBGFN7uVkaNmf-T3Fo6siDzQYRN8dvfmtCO5dhrKLL1_PmkUIUoqNGi0xLolIu5vsDQMCKoXMbW-LvbJZJoMsUSx1t5lfQk67zY6nnu0lzlMID4oZQ3tUpc-FFzMZ-jDjpmfqlx-1CbqV2MofO69_YbT-3KUNPHPnNm1w6H4O19Luu-qQExNy3dheYmgDxR7bQCy1p4AtKrV4itbM8j0GzKbQjtVzkFTWxwXnutxnIW13zxizKjfpao1P-4Euqs0AZKwHs4NGKrk2Adakcvw-3SfuJCzQbjsTqfzarg4PYWBaXYVP-5BWbezZfjGB7Vwrf37dYsCgz2TVd5MPNT5qGkp1VHczO6JGgJasKQM-pDF19aaMg'
+			'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTdiZjkwYTNmOWMwMWU5OWM5ODQzNzMwZDRiYzY4ZjNjOWEzM2ZlODEwMWM1ZGUwOWQ5MjFkZDc5ZjQ5NDJjODU3ZDFhYjk2NmQ4MDBlMzciLCJpYXQiOjE2MjcwNDIwODQuMzY3MDc3LCJuYmYiOjE2MjcwNDIwODQuMzY3MDgyLCJleHAiOjE2NTg1NzgwODQuMjk3NTg1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.m8hG-S5JencNPbEkP8m6CH0MZ9MnSn2zh8tVHIiGWJuxkSuUvXBPIQ5xa9pHwUDN5SxN1nWWghmXmW5-6JNetDNskjAyNFpRjbeSE73olDf4GuzQ0EnOdKAFTn5HVPtbF3Szdynvpb4nVD5Wnu1SKWvZwlvCW151t7G7Gi_nXiDbd1raJQC_OFaOjUScutss_xOr90L0f6x1kQIG5S6FlYQ1HNj1NmbUIlTeQOuayaE_1hG1xgBIDJO4vrlcnyROrnSE6dCYh8XONgVEQqVYhh4EEyloGP5IZLhjaB7HKl68BDg0-syHyI8c7IGHQozYjcsigdh77P1Sk3XIr7L-Bkr0zf2snmTv-lf0GL67GF1-Y9kBoQDK3ZwUmvxoWk5ySrtBVT3xsq3QCa8e5TWjN8FiQAXJE1V2CW9ELSS9bJ3KNdbfH7fwwieGIvL6KvunQ7IzjB9zUogLCRdkk6yCetmfC1ewgsRh9OZjxbismHr_DjefviAyoGxbwG8oulSo6BQmG3KlxCSnqsjBJEQQ-zOj8v1sGJreg9MTNTyRRTUYrrs352wgUo1kasQ5J48A-rMPSIiAFu4KEK1smbjp3wzn7SQpjNnP7jrWhNVMK9jpR7JF5Fh_HR9oRC7aDcs23JmlszP8HMVYr9QNnjEOI78jcn8fI8kAqJ_9V96TxlY'
 		},
 		
 	}
@@ -355,8 +355,11 @@ const download = (res) => {
 	  
 	  console.log('conttype' + response.headers['content-type']); 
 	  console.log('disposition' + response.headers['content-disposition']); 
+	  const fileformheader = 'asdasadssdasad.pdf'; 
 	 
-	   const fileformheader = response.headers['content-disposition'].split("filename=")[1];
+	 
+	
+	  
 	  const path = fileformheader; 
 	  
     request(options)
