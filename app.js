@@ -354,8 +354,10 @@ const download = (res) => {
 	  
 	  
 	  console.log('conttype' + response.headers['content-type']); 
-	  console.log('conttype' + response.rawHeaders); 
-	  
+	  console.log('disposition' + response.headers['content-disposition']); 
+	 
+	   const fileformheader = response.headers['content-disposition'].split("filename=")[1];
+	  const path = fileformheader; 
 	  
     request(options)
       .pipe(fs.createWriteStream(path))
@@ -369,13 +371,12 @@ const download = (res) => {
 	  })
 	  .on('finish',function(){
 		  
-		  if (fs.existsSync(path)) {
-			//res.send('bestaat'); 	
-				
+		  if (!fs.existsSync(path)) {
+			res.send('bestaat'); 	
+			res.end(); 	
 			}
-		  else{
-			  //res.send('bestaat niet'); 	
-		  }
+			
+			
 		//res.download(path,'logo.pdf',function(err){
 			
 			//CHECK FOR ERROR
