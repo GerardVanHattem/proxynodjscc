@@ -318,7 +318,7 @@ function callback(){
 	
 }
 
-const download = (url, path,res) => {
+const download = (res) => {
 	
 	var resultHandler = function(err) { 
 		if(err) {
@@ -344,7 +344,19 @@ const download = (url, path,res) => {
 		
 	}
 	
+	//create temp filename
+	const crypto = require("crypto");
+	const id = crypto.randomBytes(20).toString('hex');		
+	const tempFileName = id+'.png'; 
+		
+
   request.head(options, (err, response, body) => {
+	  
+	  
+	  console.log('conttype' + response.headers['content-type']); 
+	  console.log('conttype' + response.rawHeaders); 
+	  
+	  
     request(options)
       .pipe(fs.createWriteStream(path))
       .on('close', function(){
@@ -352,17 +364,17 @@ const download = (url, path,res) => {
 				
 				
 			}
-			
-		  console.log(path); 
+		
+		  console.log('path'+path); 
 	  })
 	  .on('finish',function(){
 		  
 		  if (fs.existsSync(path)) {
-			res.send('bestaat'); 	
+			//res.send('bestaat'); 	
 				
 			}
 		  else{
-			  res.send('bestaat niet'); 	
+			  //res.send('bestaat niet'); 	
 		  }
 		//res.download(path,'logo.pdf',function(err){
 			
@@ -370,14 +382,14 @@ const download = (url, path,res) => {
 			//fs.unlink(path,resultHandler);
 		//})
 		
-			/*var filename = filesystem.basename(path);
+			var filename = filesystem.basename(path);
 			var mimetype = mime.lookup(path);
 
 			res.setHeader('Content-disposition', 'attachement; filename=' + filename);
 			res.setHeader('Content-type', 'application');
 
 			var filestream = fs.createReadStream(filename);
-			filestream.pipe(res);*/ 
+			filestream.pipe(res);
 		  
 		 
 		  
@@ -396,13 +408,7 @@ const path = 'image.png'
 
 app.get('/img', (req,res) =>{ 
 	
-	//create temp filename
-		const crypto = require("crypto");
-		const id = crypto.randomBytes(20).toString('hex');		
-		const tempFileName = id+'.pdf'; 
-		
-
-	download(url, tempFileName, res, () => {
+	download(res, () => {
 	  console.log('Done!')
 	})
 	
