@@ -201,8 +201,8 @@ app.get('/', (req,res) =>{
 	var filename = filesystem.basename('check.pdf');
 	var mimetype = mime.lookup('check.pdf');
 
-	res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-	res.setHeader('Content-type', 'application');
+	res.setHeader('Content-disposition', 'inline; filename=' + filename);
+	res.setHeader('Content-type',  mimetype);
 
 	var filestream = fs.createReadStream(filename);
 	filestream.pipe(res);
@@ -320,7 +320,6 @@ function callback(){
 
 const download = (url, path,res) => {
 	
-
 	var resultHandler = function(err) { 
 		if(err) {
 			console.log("unlink failed", err);
@@ -343,9 +342,11 @@ const download = (url, path,res) => {
     request(options)
       .pipe(fs.createWriteStream(path))
       .on('close', function(){
-		  if (fs.existsSync(path)) {
-				console.log(path + 'exists'); 
+			if (fs.existsSync(path)) {
+				
+				
 			}
+			
 		  console.log(path); 
 	  })
 	  .on('finish',function(){
@@ -356,10 +357,10 @@ const download = (url, path,res) => {
 			//fs.unlink(path,resultHandler);
 		//})
 		
-		var filename = filesystem.basename(path);
+			var filename = filesystem.basename(path);
 			var mimetype = mime.lookup(path);
 
-			res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+			res.setHeader('Content-disposition', 'attachement; filename=' + filename);
 			res.setHeader('Content-type', 'application');
 
 			var filestream = fs.createReadStream(filename);
@@ -367,6 +368,10 @@ const download = (url, path,res) => {
 		  
 		 
 		  
+	  })
+	  .on('error',function(){
+			res.send('error') 
+			return; 
 	  })
   })
 }
