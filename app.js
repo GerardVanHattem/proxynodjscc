@@ -193,6 +193,7 @@ app.get('/me', (req,res) => {
 })
 
 app.get('/', (req,res) =>{
+	res.download('check.pdf', 'check.pdf')
 	
 	//res.send('keys' + process.env.CLIENT_ID + ' ' + process.env.client_secret + 'host' +config.api.host); 
 	
