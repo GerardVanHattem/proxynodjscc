@@ -351,28 +351,30 @@ const download = (url, path,res) => {
 	  })
 	  .on('finish',function(){
 		  
+		  
+		  res.send('adasdasdasdasdassa'); 
 		//res.download(path,'logo.pdf',function(err){
 			
 			//CHECK FOR ERROR
 			//fs.unlink(path,resultHandler);
 		//})
 		
-			var filename = filesystem.basename(path);
+			/*var filename = filesystem.basename(path);
 			var mimetype = mime.lookup(path);
 
 			res.setHeader('Content-disposition', 'attachement; filename=' + filename);
 			res.setHeader('Content-type', 'application');
 
 			var filestream = fs.createReadStream(filename);
-			filestream.pipe(res);
+			filestream.pipe(res);*/ 
 		  
 		 
 		  
 	  })
-	  .on('error',function(){
+	  /*.on('error',function(){
 			res.send('error') 
 			return; 
-	  })
+	  })*/ 
   })
 }
 
