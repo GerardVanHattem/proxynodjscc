@@ -313,8 +313,18 @@ const download = (url, path,res) => {
 		}
 	}
 	
-  request.head(url, (err, response, body) => {
-    request(url)
+	const options = 
+	{
+		uri:'http://demoincasso.casecontrol.test/api/v1/administrations/19/cases/28/file/204_d90f6bb071c69375227df0d8404c9b864ba15b5d',
+		method: 'GET',
+		 headers: {
+			'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0MyIsImp0aSI6ImVmYzUzYzgzODc0ZGMwZDllYWVmYTM4ZDI5ZjFlZWMxZjc2NDY5NTY1OTE5ZjhmOWUyMDkxNTc5NTYxZDQyY2FkOTdkMWI2MzdkNmM3ZjhlIiwiaWF0IjoxNjI3MDI0NzE4LjgwNTc1OCwibmJmIjoxNjI3MDI0NzE4LjgwNTc2NiwiZXhwIjoxNjU4NTYwNzE4LjQ5NTgwOCwic3ViIjoiMSIsInNjb3BlcyI6W119.NT_J4_HYt0SGHkeSEd11Kpj0qITUYBWI9Z28PbOuDsc57pMUeb2PQEh1HfJK2RtFxxV_teGKXHlk-x3MtJxmppESo2VnlhUYkfO0fuPXGjHBie-dBKdypz6hWL0U3PC4bQ5Jdh58EeoLP5IioRCh4pqhX2pY0PqxgS57pHO2rUNfloaqrpBVRRwltdQKhcYPFnVEv18GJXpFd1xvsigqFbW-fOG3zNGxPdTDfGRyywePGWqd-FW5w-SBks9_xyYhUGP24unso9RWb6JRygqQr6Csc0eA8OBJAkqvJvre1oYHN5ci2OETQGVzrNBGFN7uVkaNmf-T3Fo6siDzQYRN8dvfmtCO5dhrKLL1_PmkUIUoqNGi0xLolIu5vsDQMCKoXMbW-LvbJZJoMsUSx1t5lfQk67zY6nnu0lzlMID4oZQ3tUpc-FFzMZ-jDjpmfqlx-1CbqV2MofO69_YbT-3KUNPHPnNm1w6H4O19Luu-qQExNy3dheYmgDxR7bQCy1p4AtKrV4itbM8j0GzKbQjtVzkFTWxwXnutxnIW13zxizKjfpao1P-4Euqs0AZKwHs4NGKrk2Adakcvw-3SfuJCzQbjsTqfzarg4PYWBaXYVP-5BWbezZfjGB7Vwrf37dYsCgz2TVd5MPNT5qGkp1VHczO6JGgJasKQM-pDF19aaMg'
+		},
+		
+	}
+	
+  request.head(options, (err, response, body) => {
+    request(options)
       .pipe(fs.createWriteStream(path))
       .on('close', function(){
 		  if (fs.existsSync(path)) {
@@ -324,9 +334,9 @@ const download = (url, path,res) => {
 	  })
 	  .on('finish',function(){
 		  
-		  res.download(path,'logo.png',function(err){
+		  res.download(path,'logo.pdf',function(err){
   //CHECK FOR ERROR
-  fs.unlink(path,resultHandler);
+  //fs.unlink(path,resultHandler);
 })
 		  
 		  if (fs.existsSync(path)) {
@@ -338,7 +348,7 @@ const download = (url, path,res) => {
   })
 }
 
-const url = 'http://cc.mijnsiteontwerpen.nl/img/logo.png'
+const url = 'df'
 const path = 'image.png'
 
 
@@ -348,7 +358,7 @@ app.get('/img', (req,res) =>{
 	//create temp filename
 		const crypto = require("crypto");
 		const id = crypto.randomBytes(20).toString('hex');		
-		const tempFileName = id+'.png'; 
+		const tempFileName = id+'.pdf'; 
 		
 
 	download(url, tempFileName, res, () => {
