@@ -17,6 +17,8 @@ const client_secret = 'client_secret';
 const config = require('./config');
 const encryption = require('./encryption'); 
 const os = require('os');
+const filesystem = require('path');
+const mime = require('mime');
 app.use(express.json())
 
 const request = require('request')
@@ -195,13 +197,13 @@ app.get('/', (req,res) =>{
 	//res.send('keys' + process.env.CLIENT_ID + ' ' + process.env.client_secret + 'host' +config.api.host); 
 	
 	//https://stackoverflow.com/questions/29562954/downloaded-pdf-files-are-corrupted-when-using-expressjs
-	var filename = path.basename('check.pdf');
+	var filename = filesystem.basename('check.pdf');
 	var mimetype = mime.lookup('check.pdf');
 
 	res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-	res.setHeader('Content-type', mimetype);
+	res.setHeader('Content-type', 'application');
 
-	var filestream = fs.createReadStream(file);
+	var filestream = fs.createReadStream(filename);
 	filestream.pipe(res);
 	
 	//res.download('check.pdf', 'check.pdf'); 
