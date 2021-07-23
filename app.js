@@ -355,10 +355,8 @@ const download = (url, path,res) => {
 			//CHECK FOR ERROR
 			//fs.unlink(path,resultHandler);
 		//})
-		  
-		  if (fs.existsSync(path)) {
-				
-			var filename = filesystem.basename(path);
+		
+		var filename = filesystem.basename(path);
 			var mimetype = mime.lookup(path);
 
 			res.setHeader('Content-disposition', 'attachment; filename=' + filename);
@@ -366,13 +364,8 @@ const download = (url, path,res) => {
 
 			var filestream = fs.createReadStream(filename);
 			filestream.pipe(res);
-				
-				
-				
-				
-				
-				//fs.unlink(path,resultHandler);
-			}
+		  
+		 
 		  
 	  })
   })
