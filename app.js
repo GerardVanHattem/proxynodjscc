@@ -192,9 +192,19 @@ app.get('/me', (req,res) => {
 
 app.get('/', (req,res) =>{
 	
-	res.send('keys' + process.env.client_id + ' ' + process.env.client_secret + 'host' +config.api.host); 
+	//res.send('keys' + process.env.CLIENT_ID + ' ' + process.env.client_secret + 'host' +config.api.host); 
 	
-	res.download('check.pdf', 'check.pdf'); 
+	//https://stackoverflow.com/questions/29562954/downloaded-pdf-files-are-corrupted-when-using-expressjs
+	var filename = path.basename('check.pdf');
+	var mimetype = mime.lookup('check.pdf');
+
+	res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+	res.setHeader('Content-type', mimetype);
+
+	var filestream = fs.createReadStream(file);
+	filestream.pipe(res);
+	
+	//res.download('check.pdf', 'check.pdf'); 
 	
 	//res.send('working..'); 
 	
