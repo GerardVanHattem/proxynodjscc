@@ -107,7 +107,9 @@ app.post('/oauth/token', (req,res) => {
 		
 	const username = req.body.email	
 	const password = req.body.password;
-
+	
+	
+	console.log(req.body); 
 	
 	const baseUrl = config.api.ssl + '://' + config.api.host + config.api.base_path; 
 	
@@ -115,8 +117,8 @@ app.post('/oauth/token', (req,res) => {
 	axios.post(baseUrl+'/oauth/token', {
 		password:password,
 		username:username,
-		client_id: 1, 
-		client_secret:'o4MYNbBTe20p8GxUGMwV9xlp4BPDMOnc8tyIvTev', 
+		client_id: config.api.client_id, 
+		client_secret:config.api.client_secret, 
 		grant_type:'password', 
 	 }).then(function(response) {
 		
@@ -129,7 +131,7 @@ app.post('/oauth/token', (req,res) => {
 			'accessToken':encryptedToken,
 			'refreshToken': encryptedRefeshToken
 		}
-		
+		console.log(data); 
 		//res.header("Access-Control-Allow-Origin","*");
 		
 		res.json(data); 
@@ -138,8 +140,8 @@ app.post('/oauth/token', (req,res) => {
        //res.send(response.data)
     })
     .catch(error => {
-		console.log(error); 
-		res.send(error); 
+		//console.log(error); 
+		//res.send(error); 
 	   //res.status(error.response.status)
 	   
 	   //send already a json
@@ -152,7 +154,7 @@ app.get('/me', (req,res) => {
 	
 		
 		const encryptedAuthorizationHeader = req.headers.authorization; 	
-		 
+		 console.log(encryptedAuthorizationHeader); 
 		const isBearer = encryptedAuthorizationHeader.startsWith("Bearer");
 		const encryptedToken = encryptedAuthorizationHeader.split(' ')[1];
 		
