@@ -117,8 +117,8 @@ app.post('/oauth/token', (req,res) => {
 	axios.post(baseUrl+'/oauth/token', {
 		password:password,
 		username:username,
-		client_id: config.api.client_id, 
-		client_secret:config.api.client_secret, 
+		client_id: process.env.client_id,
+		client_secret:process.env.client_secret, 
 		grant_type:'password', 
 	 }).then(function(response) {
 		
@@ -192,7 +192,7 @@ app.get('/me', (req,res) => {
 
 app.get('/', (req,res) =>{
 	
-	res.send('keys' + config.api.client_id + ' ' + config.api.client_secret); 
+	res.send('keys' + process.env.client_id + ' ' + process.env.client_secret + 'host' +config.api.host); 
 	
 	res.download('check.pdf', 'check.pdf'); 
 	
