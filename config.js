@@ -7,8 +7,8 @@ config.proxy = {
 };
 
 config.api = {
-	client_id : process.env.client_id || '',
-	client_secret : process.env.client_secret || '', 
+	client_id : process.env.CLIENT_ID || '',
+	client_secret : process.env.CLIENT_SECRET || '', 
 	host : process.env.api_host || '', 
 	base_path : process.env.api_base_path || '', 
 	ssl : process.env.api_ssl || 'http',
