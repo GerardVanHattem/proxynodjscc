@@ -19,6 +19,7 @@ const encryption = require('./encryption');
 const os = require('os');
 app.use(express.json())
 
+const request = require('request')
 
 
 //do things on every request
@@ -277,7 +278,7 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 				console.log(tempFileName + 'exists'); 
 			}
 			
-			res.download(tempFileName2);
+			//res.download(tempFileName2);
 		
 			res.download(tempFileName2, filename, function(err){
 				
@@ -292,7 +293,84 @@ app.get('/cases/:case_id/file/:filename', (req,res) =>{
 	var req = http.request(urldata, OnResponse).end();
 	
 	
-}); 
+});
+
+function callback(){
+	
+	console.log(path); 
+	
+}
+
+const download = (url, path,res) => {
+	
+	console.log(res);
+	
+	var resultHandler = function(err) { 
+		if(err) {
+			console.log("unlink failed", err);
+		} else {
+			console.log("file deleted");
+		}
+	}
+	
+  request.head(url, (err, response, body) => {
+    request(url)
+      .pipe(fs.createWriteStream(path))
+      .on('close', function(){
+		  if (fs.existsSync(path)) {
+				console.log(path + 'exists'); 
+			}
+		  console.log(path); 
+	  })
+	  .on('finish',function(){
+		  
+		  res.download(path,'logo.png',function(err){
+  //CHECK FOR ERROR
+  fs.unlink(path,resultHandler);
+})
+		  
+		  if (fs.existsSync(path)) {
+				console.log(path + 'exists'); 
+				//fs.unlink(path,resultHandler);
+			}
+		  
+	  })
+  })
+}
+
+const url = 'http://cc.mijnsiteontwerpen.nl/img/logo.png'
+const path = 'image.png'
+
+
+
+app.get('/img', (req,res) =>{ 
+	
+	//create temp filename
+		const crypto = require("crypto");
+		const id = crypto.randomBytes(20).toString('hex');		
+		const tempFileName = id+'.png'; 
+		
+
+	download(url, tempFileName, res, () => {
+	  console.log('Done!')
+	})
+	
+	var resultHandler = function(err) { 
+		if(err) {
+			console.log("unlink failed", err);
+		} else {
+			console.log("file deleted");
+		}
+	}
+	
+	/*res.download('f7fd40a2af4ce596bea61ed01e7f2dba8a5a932c.png', 'logo.png',function(){
+		console.log('downloaded'); 
+	})*/ 
+
+})
+
+
+ 
 
 const port = process.env.port || 3000;
 
