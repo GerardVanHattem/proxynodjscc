@@ -26,7 +26,7 @@ const request = require('request')
 
 //do things on every request
 app.all("*", (req,res, next) => {
-
+	
 		next(); 
 		
 })
@@ -34,8 +34,7 @@ app.all("*", (req,res, next) => {
 //event on proxy response
 function onProxyRes(proxyRes, req, res) {
 	
-	
-  
+	  
 }
 
 
@@ -43,7 +42,15 @@ function onProxyRes(proxyRes, req, res) {
 function onProxyReq(proxyReq, req, res) {	
 		
 	const encryptedAuthorizationHeader = req.headers.authorization; 	
-		 
+	
+	//check if a bearer token is set.
+	if(!encryptedAuthorizationHeader){
+		res.status(401)
+		res.json({'error':'No bearer token'}) 
+		res.end(); 
+		return; 
+	}
+	
 	const isBearer = encryptedAuthorizationHeader.startsWith("Bearer");
 	const encryptedToken = encryptedAuthorizationHeader.split(' ')[1];
 	
@@ -60,6 +67,14 @@ function onProxyReq(proxyReq, req, res) {
 	
 }
 
+function onError(err, req, res) {
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        });
+        res.end('Something went wrong. And we are reporting a custom error message.' + err);
+}
+	
+
 
 const middlewareOptions = {
 	
@@ -67,39 +82,18 @@ const middlewareOptions = {
 	changeOrigin: true, 
 	onProxyReq:onProxyReq,
 	onProxyRes:onProxyRes,
-    //logLevel: 'debug',
+	onError:onError, 
+    logLevel: 'debug', 
 	pathRewrite: {	  
        [`^/api/v1`]: '',
    }
 }
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://master.d23zxthy4ykh0n.amplifyapp.com')
-  res.header('Access-Control-Allow-Credentials', true)
-  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
-
+//cors
 let cors = require('cors')
-/*
-var whitelist = ['http://localhost:3001','https://master.d23zxthy4ykh0n.amplifyapp.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-} 
-app.use(cors(corsOptions))
-app.use(cors('*'))*/ 
-
 const corsOptions = {
   origin: config.api.cors_domain
 }
-
 app.use(cors(corsOptions))
 
 app.use('/api/v1', createProxyMiddleware(middlewareOptions));
@@ -132,9 +126,7 @@ app.post('/oauth/token', (req,res) => {
 		}
 		
 		res.json(data); 
-		
-		
-       //res.send(response.data)
+
     })
     .catch(error => {
 		
@@ -150,7 +142,7 @@ app.get('/me', (req,res) => {
 	
 		
 		const encryptedAuthorizationHeader = req.headers.authorization; 	
-		 console.log(encryptedAuthorizationHeader); 
+		
 		const isBearer = encryptedAuthorizationHeader.startsWith("Bearer");
 		const encryptedToken = encryptedAuthorizationHeader.split(' ')[1];
 		
