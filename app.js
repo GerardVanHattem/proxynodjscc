@@ -20,7 +20,7 @@ const os = require('os');
 const filesystem = require('path');
 const mime = require('mime');
 app.use(express.json())
-
+ 
 const request = require('request')
 
 
@@ -110,8 +110,8 @@ app.post('/oauth/token', (req,res) => {
 	axios.post(baseUrl+'/oauth/token', {
 		password:password,
 		username:username,
-		client_id: process.env.client_id,
-		client_secret:process.env.client_secret, 
+		client_id: config.api.client_id, 
+		client_secret:config.api.client_secret, 
 		grant_type:'password', 
 	 }).then(function(response) {
 		
